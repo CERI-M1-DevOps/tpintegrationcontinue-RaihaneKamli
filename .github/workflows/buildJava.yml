@@ -6,6 +6,8 @@ on:
 
 jobs:
     checkout-setup-java:
+    name: Checkout and Setup Java with Maven
+    runs-on: ubuntu-latest
         steps:
            -  name: Checkout repository
               uses: actions/checkout@v4.1.6
