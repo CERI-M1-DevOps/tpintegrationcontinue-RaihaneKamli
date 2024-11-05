@@ -12,8 +12,7 @@ jobs:
            -  name: Checkout repository
               uses: actions/checkout@v4.1.6
            -  name: Run setup-java with the cache for gradle
-              uses: ./
-              id: setup-java
+              uses: actions/setup-java@v4
               with:
                   distribution: corretto
                   java-version: '21'
