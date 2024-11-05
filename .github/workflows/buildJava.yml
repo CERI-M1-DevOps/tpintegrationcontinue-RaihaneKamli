@@ -1,0 +1,19 @@
+name: Java CI with Maven - Test and package
+
+on:
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  checkout-setup-java:
+    steps:
+    - name: Checkout repository
+	  uses: actions/checkout@v4.1.6
+	- name: Run setup-java with the cache for gradle
+	  uses: ./
+      id: setup-java
+      with:
+        distribution: 'corretto'
+        java-version: '21'
+    - name: Run Maven
+      run: mvn -B package
