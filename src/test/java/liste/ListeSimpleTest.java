@@ -63,6 +63,12 @@ class ListeSimpleTest {
         assertEquals(4, listeATester.tete.getSuivant().getElement());
     }
 
+    void modifiePremierListeVide() {
+        // Tester que la modification sur une liste vide ne cause pas d'erreur et ne change rien
+        listeATester.modifiePremier(1, 2);
+        assertNull(listeATester.tete);
+    }
+
     @Test
     void modifieTous() {
         listeATester.ajout(1);
@@ -267,4 +273,47 @@ class ListeSimpleTest {
         System.out.println(listeATester);
         assertEquals("ListeSimple(Noeud(4), Noeud(2), Noeud(3), Noeud(1), Noeud(5))", listeATester.toString());
     }
+
+    @Test
+    void echangerDeuxNoeudsIdentiques() {
+        listeATester.ajout(5);
+        listeATester.ajout(4);
+        Noeud r1 = listeATester.tete;  // r1 = 4
+        Noeud r2 = r1;  // r2 = r1 (identiques)
+        listeATester.ajout(3);
+        listeATester.ajout(2);
+        listeATester.ajout(1);
+        assertEquals("ListeSimple(Noeud(1), Noeud(2), Noeud(3), Noeud(4), Noeud(5))", listeATester.toString());
+        listeATester.echanger(r1, r2);  // N'ayant pas changé les noeuds, la liste devrait rester la même
+        assertEquals("ListeSimple(Noeud(1), Noeud(2), Noeud(3), Noeud(4), Noeud(5))", listeATester.toString());
+    }
+
+    @Test
+    void echangerLePremierAvecUnAutreNoeud() {
+        listeATester.ajout(5);
+        listeATester.ajout(4);
+        Noeud r1 = listeATester.tete;  // r1 = 4
+        listeATester.ajout(3);
+        listeATester.ajout(2);
+        listeATester.ajout(1);
+        Noeud r2 = listeATester.tete.getSuivant();  // r2 = 3
+        assertEquals("ListeSimple(Noeud(1), Noeud(2), Noeud(3), Noeud(4), Noeud(5))", listeATester.toString());
+        listeATester.echanger(r1, r2);  // Échanger les nœuds
+        assertEquals("ListeSimple(Noeud(1), Noeud(3), Noeud(2), Noeud(4), Noeud(5))", listeATester.toString());
+    }
+
+    @Test
+    void echangerAvecUnNoeudEnFinDeListe() {
+        listeATester.ajout(5);
+        listeATester.ajout(4);
+        Noeud r1 = listeATester.tete;  // r1 = 4
+        listeATester.ajout(3);
+        listeATester.ajout(2);
+        listeATester.ajout(1);
+        Noeud r2 = listeATester.tete.getSuivant().getSuivant().getSuivant().getSuivant();  // r2 = 1 (fin de liste)
+        assertEquals("ListeSimple(Noeud(1), Noeud(2), Noeud(3), Noeud(4), Noeud(5))", listeATester.toString());
+        listeATester.echanger(r1, r2);  // Échanger le nœud au début avec celui à la fin
+        assertEquals("ListeSimple(Noeud(1), Noeud(2), Noeud(3), Noeud(5), Noeud(4))", listeATester.toString());
+    }
+
 }
