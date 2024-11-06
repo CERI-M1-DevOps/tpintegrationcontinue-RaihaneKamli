@@ -98,7 +98,7 @@ class ListeSimpleTest {
         listeATester.ajout(3);
         listeATester.ajout(4);
         listeATester.supprimePremier(2);
-        assertEquals(listeATester.toString(), "ListeSimple(Noeud(4), Noeud(3), Noeud(1))");
+        assertEquals("ListeSimple(Noeud(4), Noeud(3), Noeud(1))",listeATester.toString());
         assertEquals(3, listeATester.getSize());
     }
 
@@ -112,6 +112,17 @@ class ListeSimpleTest {
         assertEquals("ListeSimple(Noeud(4), Noeud(3), Noeud(2))", listeATester.toString());
         assertEquals(3, listeATester.getSize());
     }
+
+    @Test
+    void supprimePremierElementNonPresent() {
+        listeATester.ajout(1);
+        listeATester.ajout(2);
+        listeATester.ajout(3);
+        listeATester.supprimePremier(4);  // L'élément 4 n'est pas dans la liste
+        assertEquals("ListeSimple(Noeud(3), Noeud(2), Noeud(1))", listeATester.toString());
+        assertEquals(3, listeATester.getSize());  // La taille doit rester inchangée
+    }
+
 
     @Test
     void supprimeTousListeVide() {
