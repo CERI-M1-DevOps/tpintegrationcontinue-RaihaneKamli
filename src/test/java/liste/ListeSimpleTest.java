@@ -63,6 +63,7 @@ class ListeSimpleTest {
         assertEquals(4, listeATester.tete.getSuivant().getElement());
     }
 
+    @Test
     void modifiePremierListeVide() {
         // Tester que la modification sur une liste vide ne cause pas d'erreur et ne change rien
         listeATester.modifiePremier(1, 2);
@@ -279,12 +280,12 @@ class ListeSimpleTest {
         listeATester.ajout(5);
         listeATester.ajout(4);
         Noeud r1 = listeATester.tete;  // r1 = 4
-        Noeud r2 = r1;  // r2 = r1 (identiques)
+        // r2 = r1 (identiques)
         listeATester.ajout(3);
         listeATester.ajout(2);
         listeATester.ajout(1);
         assertEquals("ListeSimple(Noeud(1), Noeud(2), Noeud(3), Noeud(4), Noeud(5))", listeATester.toString());
-        listeATester.echanger(r1, r2);  // N'ayant pas changé les noeuds, la liste devrait rester la même
+        listeATester.echanger(r1, r1);  // N'ayant pas changé les noeuds, la liste devrait rester la même
         assertEquals("ListeSimple(Noeud(1), Noeud(2), Noeud(3), Noeud(4), Noeud(5))", listeATester.toString());
     }
 
@@ -299,7 +300,7 @@ class ListeSimpleTest {
         Noeud r2 = listeATester.tete.getSuivant();  // r2 = 3
         assertEquals("ListeSimple(Noeud(1), Noeud(2), Noeud(3), Noeud(4), Noeud(5))", listeATester.toString());
         listeATester.echanger(r1, r2);  // Échanger les nœuds
-        assertEquals("ListeSimple(Noeud(1), Noeud(3), Noeud(2), Noeud(4), Noeud(5))", listeATester.toString());
+        assertEquals("ListeSimple(Noeud(1), Noeud(4), Noeud(3), Noeud(2), Noeud(5))", listeATester.toString());
     }
 
     @Test
