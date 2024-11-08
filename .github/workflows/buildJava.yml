@@ -1,0 +1,35 @@
+name: Java CI with Maven - Test and package
+
+on:
+    pull_request:
+        branches: [main]
+        types: [closed]
+jobs:
+    checkout-setup-java:
+        name: Checkout and Setup Java with Maven
+        runs-on: ubuntu-latest
+        steps:
+           -  name: Checkout repository
+              uses: actions/checkout@v4.1.6
+           -  name: Run setup-java with the cache for maven
+              uses: actions/setup-java@v4
+              with:
+                  distribution: corretto
+                  java-version: '21'
+                  cache: 'maven'
+           - name: Cache Maven packages
+             uses: actions/cache@v1
+             with:
+                 path: ~/.m2
+                 key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+                 restore-keys: ${{ runner.os }}-m2
+           - name: Cache SonarQube packages
+             uses: actions/cache@v1
+             with:
+                 path: ~/.sonar/cache
+                 key: ${{ runner.os }}-sonar
+                 restore-keys: ${{ runner.os }}-sonar
+           -  name: Run Maven
+              env:
+                SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+              run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=$(echo ${{ github.repository }} | sed 's-/-_-')
