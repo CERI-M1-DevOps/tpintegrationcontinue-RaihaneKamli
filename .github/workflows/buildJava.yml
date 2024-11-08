@@ -11,14 +11,24 @@ jobs:
         steps:
            -  name: Checkout repository
               uses: actions/checkout@v4.1.6
-           -  name: Run setup-java with the cache for gradle
+           -  name: Run setup-java with the cache for maven
               uses: actions/setup-java@v4
               with:
                   distribution: corretto
                   java-version: '21'
-                  path:
-                    ~/.gradle/caches
-                    ~/.gradle/wrapper
+                  cache: 'maven'
+           - name: Cache Maven packages
+             uses: actions/cache@v1
+             with:
+                 path: ~/.m2
+                 key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+                 restore-keys: ${{ runner.os }}-m2
+           - name: Cache SonarQube packages
+             uses: actions/cache@v1
+             with:
+                 path: ~/.sonar/cache
+                 key: ${{ runner.os }}-sonar
+                 restore-keys: ${{ runner.os }}-sonar
            -  name: Run Maven
               env:
                 SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
