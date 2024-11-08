@@ -16,6 +16,9 @@ jobs:
               with:
                   distribution: corretto
                   java-version: '21'
+                  path:
+                    ~/.gradle/caches
+                    ~/.gradle/wrapper
            -  name: Run Maven
               env:
                 SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
