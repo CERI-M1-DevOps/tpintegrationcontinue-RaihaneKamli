@@ -3,7 +3,7 @@ name: Java CI with Maven - Test and package
 on:
     pull_request:
         branches: [main]
-
+        types: [closed]
 jobs:
     checkout-setup-java:
         name: Checkout and Setup Java with Maven
