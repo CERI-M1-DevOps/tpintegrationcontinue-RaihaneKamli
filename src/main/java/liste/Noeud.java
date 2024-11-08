@@ -33,7 +33,7 @@ public class Noeud {
 
     /**
      * Obtient le nœud suivant dans la liste.
-     * @return Le nœud suivant.
+     * @return Le nœud suivant.n
      */
     public Noeud getSuivant() {
         return suivant;
